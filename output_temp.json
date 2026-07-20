@@ -1,0 +1,394 @@
+[
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Concepto y clasificación de monosacáridos. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "¿Cómo se produce la formación de un disacárido? ¿y su hidrólisis? (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Algunos polisacáridos tienen función energética, otros estructural. Pon un ejemplo de cada caso en animales y vegetales, y señala sus características. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Cita los orgánulos y estructuras que son exclusivos de las células eucarióticas vegetales y comenta sus funciones más importantes. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Explica la estructura y la función del retículo endoplasmático liso (REL). (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Cita los componentes del citoesqueleto y explica su función en: (3 puntos) a) el movimiento de cilios y flagelos, b) la formación del huso mitótico y c) la contracción muscular.",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Este esquema corresponde a una célula pancreática secretora de enzimas digestivos a la que se ha añadido un aminoácido marcado radioactivamente (leucina tritiada). Después, a diferentes tiempos (3, 20 y 90 minutos) se examina el lugar donde aparece la marca radioactiva (&). Los resultados vienen reflejados en la figura. 1. Identifica todos los orgánulos que aparecen en la figura. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Interpreta los resultados obtenidos en el experimento haciendo referencia a los orgánulos donde se encuentra el marcaje a diferentes tiempos. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "¿Qué mecanismo utiliza la célula para liberar el producto de secreción? Explícalo. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Explica la estructura y la composición del núcleo interfásico. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Señala las características del cromosoma metafásico. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "¿Cuál es la función del nucleolo? (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 2,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Define los conceptos de anabolismo y de catabolismo. Pon un ejemplo de cada uno. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Cita las propiedades que permiten considerar a los enzimas como catalizadores. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Factores que afectan a la actividad enzimática. Explícalos. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Explica la estructura del cloroplasto. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 2,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "¿Qué compuestos se sintetizan en la fase luminosa de la fotosíntesis?. Cita el proceso que produce la fijación del CO2? Indica la localización intracelular de ambos procesos. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 2,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Explica que factores afectan al rendimiento de la fotosíntesis. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 4,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Define los siguientes conceptos: a) plásmido, b) agente mutagénico, c) mutación. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 4,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "Explica en qué consiste la recombinación genética en eucariotas. ¿Cuál es su importancia en el proceso evolutivo? (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 4,
+    "year": 2008,
+    "month": "Junio",
+    "option": "A",
+    "question_text": "¿Qué mecanismos pueden utilizar las bacterias para intercambiar sus genes? Explícalos brevemente. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Define los siguientes conceptos: (3 puntos) a) antígeno, b) inmunoglobulina, c) autoinmunidad.",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "El virus del SIDA infecta linfocitos T4, provocando a la larga su destrucción ¿Qué consecuencias traerá para el individuo la infección por el virus? Razona la respuesta. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Junio",
+    "option": "B",
+    "question_text": "Cita tres ejemplos de microorganismos patógenos indicando en cada caso: (3 puntos) 1) el tipo de microorganismo 2) la enfermedad que produce 3) la vía de contagio.",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Estructura general de un aminoácido. Concepto de péptido.(2 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Cita los tipos de enlace que estabilizan la estructura terciaria de una proteína.(2 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Explica qué es la desnaturalización de una proteína y qué causas la provocan.(2 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 1,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Haz una clasificación de las proteínas atendiendo a su función en los organismos. Cita un ejemplo en cada caso.(4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Enuncia los principios de la Teoría Celular.(3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "En la figura adjunta, identifica los orgánulos y estructuras indicadas por los números 1 a 9 (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Cita las diferencias fundamentales entre célula bacteriana y célula eucariótica. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Haz un esquema de la mitocondria y explica su estructura.(4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "¿Por qué la membrana mitocondrial interna tiene un contenido proteico superior al de otras membranas? Razónalo.(2 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 2,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "La mitocondria se denomina con frecuencia “central energética” de las células eucarióticas. Razona por qué es apropiado ese término e indica los procesos que se producen en ella.(4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Haz un esquema de la membrana plasmática identificando en él sus componentes.(4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "¿Por qué se dice que la membrana plasmática es asimétrica? (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Cita de qué componentes de la membrana plasmática dependen las siguientes funciones: (3 puntos) 1) Reconocimiento celular; 2) Fluidez; 3) Transporte de iones.",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Representa en un esquema el ciclo celular e indica qué ocurre en cada una de sus fases.(3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Define los siguientes términos: a) cromátida, b) cromosoma, c) centrómero, d) cinetocoro. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 3,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Explica las diferencias entre citocinesis animal y vegetal. (3 puntos).",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Estructura general de un virus. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Explica qué es: a) un bacteriófago, b) un retrovirus, c) un prión. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Explica el ciclo lítico y lisogénico de los virus. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 4,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "¿Qué es el código genético? Explica sus características.(3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 4,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Define: a) Gen, b) Codón, c) Anticodón. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 4,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "A",
+    "question_text": "Explica qué es una mutación y comenta los tipos de mutaciones. (4 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Concepto de antígeno y de anticuerpo. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Explica qué es respuesta primaria y secundaria respecto a la infección. (3 puntos)",
+    "criteria_text": ""
+  },
+  {
+    "thematic_block_id": 5,
+    "year": 2008,
+    "month": "Septiembre",
+    "option": "B",
+    "question_text": "Explica qué son células con memoria y qué papel tienen en la respuesta representada en la gráfica. (4 puntos)",
+    "criteria_text": ""
+  }
+]
