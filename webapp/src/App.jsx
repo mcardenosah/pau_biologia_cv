@@ -93,7 +93,7 @@ function App() {
             <div className="card-body">
               {q.image && (
                 <div className="image-container" style={{ textAlign: 'center', margin: '1rem 0' }}>
-                  <img src={q.image} alt="Imagen adjunta a la pregunta" style={{ maxWidth: '100%', maxHeight: '400px', borderRadius: '8px', border: '1px solid var(--border)' }} />
+                  <img src={q.image.startsWith('/') ? `.${q.image}` : q.image} alt="Imagen adjunta a la pregunta" style={{ maxWidth: '100%', maxHeight: '400px', borderRadius: '8px', border: '1px solid var(--border)' }} />
                 </div>
               )}
               <div className="question-text">

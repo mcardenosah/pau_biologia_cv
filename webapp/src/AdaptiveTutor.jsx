@@ -120,7 +120,7 @@ export default function AdaptiveTutor({ questions, onExit }) {
           <div className="card-body">
             {currentQuestion.image && (
               <div className="image-container" style={{ textAlign: 'center', margin: '1rem 0' }}>
-                <img src={currentQuestion.image} alt="Imagen didáctica" style={{ maxWidth: '100%', maxHeight: '350px', borderRadius: '8px', border: '1px solid var(--border)' }} />
+                <img src={currentQuestion.image.startsWith('/') ? `.${currentQuestion.image}` : currentQuestion.image} alt="Imagen didáctica" style={{ maxWidth: '100%', maxHeight: '350px', borderRadius: '8px', border: '1px solid var(--border)' }} />
               </div>
             )}
             <div className="question-text">
