@@ -33,9 +33,9 @@ export default function AdaptiveTutor({ questions, onExit }) {
     // 2. Romper párrafos largos por punto y seguido para evitar checklist de un solo item gigante
     let items = [];
     for (let line of rawLines) {
-      if (line.includes('. ') && line.length > 80) {
-        // Dividir por punto seguido de espacio y letra mayúscula
-        const parts = line.split(/\.\s+(?=[A-ZÁÉÍÓÚÑ])/);
+      if (line.includes('. ') && line.length > 50) {
+        // Dividir por punto seguido de espacio y letra mayúscula, o espacio y letra minúscula con paréntesis (ej: " b) ")
+        const parts = line.split(/\.\s+(?=[A-ZÁÉÍÓÚÑ]|[a-z]\)\s)/);
         parts.forEach((p, idx) => {
           items.push(p.trim() + (idx < parts.length - 1 ? '.' : ''));
         });
@@ -50,7 +50,7 @@ export default function AdaptiveTutor({ questions, onExit }) {
       // Eliminar textos que son solo puntuaciones (ej: "0,5 puntos", "(1 punto)")
       if (/^\(?\d+[,.]?\d*\s*puntos?\)?\.?$/.test(lower)) return false;
       // Eliminar cabeceras redundantes
-      if (lower === 'criterios de corrección:' || lower === 'criterios:' || lower === 'respuesta:') return false;
+      if (lower === 'criterios de corrección:' || lower === 'criterios:' || lower === 'respuesta:' || lower.replace(':','').trim() === 'el alumno contestará' || lower.includes('el alumno contestará:')) return false;
       // Eliminar ítems vacíos o absurdamente cortos ("a)", "-")
       if (item.length < 5) return false;
       return true;
