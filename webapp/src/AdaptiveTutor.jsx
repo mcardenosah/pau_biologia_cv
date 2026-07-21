@@ -152,7 +152,40 @@ export default function AdaptiveTutor({ questions, onExit }) {
     );
   }
 
-  const criteriaItems = currentQuestion?.criteria ? currentQuestion.criteria.split('\n').filter(l => l.trim().length > 0) : [];
+  const parseCriteria = (text) => {
+    if (!text) return [];
+    
+    // 1. Dividir por saltos de línea
+    let rawLines = text.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+    
+    // 2. Romper párrafos largos por punto y seguido para evitar checklist de un solo item gigante
+    let items = [];
+    for (let line of rawLines) {
+      if (line.includes('. ') && line.length > 80) {
+        // Dividir por punto seguido de espacio y letra mayúscula
+        const parts = line.split(/\.\s+(?=[A-ZÁÉÍÓÚÑ])/);
+        parts.forEach((p, idx) => {
+          items.push(p.trim() + (idx < parts.length - 1 ? '.' : ''));
+        });
+      } else {
+        items.push(line);
+      }
+    }
+    
+    // 3. Limpiar líneas informativas sin opción a check
+    return items.filter(item => {
+      const lower = item.toLowerCase();
+      // Eliminar textos que son solo puntuaciones (ej: "0,5 puntos", "(1 punto)")
+      if (/^\(?\d+[,.]?\d*\s*puntos?\)?\.?$/.test(lower)) return false;
+      // Eliminar cabeceras redundantes
+      if (lower === 'criterios de corrección:' || lower === 'criterios:' || lower === 'respuesta:') return false;
+      // Eliminar ítems vacíos o absurdamente cortos ("a)", "-")
+      if (item.length < 5) return false;
+      return true;
+    });
+  };
+
+  const criteriaItems = parseCriteria(currentQuestion?.criteria);
 
   return (
     <div className="tutor-container">
