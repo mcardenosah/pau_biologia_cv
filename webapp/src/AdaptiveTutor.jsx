@@ -33,9 +33,9 @@ export default function AdaptiveTutor({ questions, onExit }) {
     // 2. Romper párrafos largos por punto y seguido para evitar checklist de un solo item gigante
     let items = [];
     for (let line of rawLines) {
-      if (line.includes('. ') && line.length > 50) {
-        // Dividir por punto seguido de espacio y letra mayúscula, o espacio y letra minúscula con paréntesis (ej: " b) ")
-        const parts = line.split(/\.\s+(?=[A-ZÁÉÍÓÚÑ]|[a-z]\)\s)/);
+      if (line.length > 50 && (line.includes('. ') || line.includes('; '))) {
+        // Dividir por punto o punto y coma seguido de espacio y letra mayúscula, o espacio y letra minúscula con paréntesis (ej: " b) ")
+        const parts = line.split(/[.;]\s+(?=[A-ZÁÉÍÓÚÑ]|[a-z]\)\s)/);
         parts.forEach((p, idx) => {
           items.push(p.trim() + (idx < parts.length - 1 ? '.' : ''));
         });
