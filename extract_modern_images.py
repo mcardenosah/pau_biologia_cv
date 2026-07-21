@@ -29,5 +29,4 @@ def extract_images_from_modern_pdfs(folder_path, output_dir):
     print(f"Extracción finalizada. {total_images} imágenes guardadas en {output_dir}")
 
 if __name__ == "__main__":
-    extract_images_from_modern_pdfs("2011-2014", "webapp/public/imagenes_extraidas/2011_2014")
-    extract_images_from_modern_pdfs("2015-2019", "webapp/public/imagenes_extraidas/2015_2019")
+    extract_images_from_modern_pdfs("2026", "webapp/public/imagenes_extraidas/2026")

@@ -3,7 +3,8 @@ import json
 files = [
     "webapp/src/data_2011_2014.json",
     "webapp/src/data_2015_2019.json",
-    "webapp/src/data_2020_2025.json"
+    "webapp/src/data_2020_2025.json",
+    "webapp/src/data_2026.json"
 ]
 
 master_data = []
