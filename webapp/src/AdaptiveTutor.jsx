@@ -12,16 +12,26 @@ export default function AdaptiveTutor({ questions, onExit }) {
   const [showCriteria, setShowCriteria] = useState(false);
   const [history, setHistory] = useState([]);
   const [isFinished, setIsFinished] = useState(false);
+  
+  // Checklists y feedback
+  const [checkedItems, setCheckedItems] = useState(new Set());
+  const [transitionMessage, setTransitionMessage] = useState("");
 
   useEffect(() => {
-    // Escoger la primera pregunta al montar si no hay ninguna y no hemos terminado
     if (!currentQuestion && availableQuestions.length > 0 && !isFinished) {
       const bestQ = selectBestQuestion(hypotheses, availableQuestions);
       setCurrentQuestion(bestQ);
     }
   }, [currentQuestion, availableQuestions, hypotheses, isFinished]);
 
-  const handleScore = (score) => {
+  const handleScore = () => {
+    // Calcular el score en función de la checklist
+    const criteriaItems = currentQuestion.criteria ? currentQuestion.criteria.split('\n').filter(l => l.trim().length > 0) : [];
+    let score = 1;
+    if (criteriaItems.length > 0) {
+      score = checkedItems.size / criteriaItems.length;
+    }
+
     // Actualizar Bayes
     const newHypotheses = updateHypotheses(hypotheses, currentQuestion, score);
     setHypotheses(newHypotheses);
@@ -34,17 +44,34 @@ export default function AdaptiveTutor({ questions, onExit }) {
     const remaining = availableQuestions.filter(q => q.id !== currentQuestion.id);
     setAvailableQuestions(remaining);
 
-    // Condición de parada (mínimo 5 preguntas, y certeza >= 0.80)
+    // Condición de parada
     const maxProb = Math.max(...newHypotheses.map(h => h.prob));
     if ((maxProb >= 0.80 && newHistory.length >= 5) || remaining.length === 0) {
       setIsFinished(true);
       setCurrentQuestion(null);
+      setTransitionMessage("");
     } else {
-      // Siguiente pregunta
+      // Siguiente pregunta y micro-feedback
+      if (score < 0.4) {
+        setTransitionMessage(`Resultado registrado (${(score*100).toFixed(0)}%). Ajustando modelo para seleccionar un concepto de refuerzo...`);
+      } else if (score < 0.8) {
+        setTransitionMessage(`Resultado registrado (${(score*100).toFixed(0)}%). Calibrando siguiente pregunta...`);
+      } else {
+        setTransitionMessage(`Resultado registrado (${(score*100).toFixed(0)}%). Evaluando siguiente nivel de complejidad...`);
+      }
+      
       const nextQ = selectBestQuestion(newHypotheses, remaining);
       setCurrentQuestion(nextQ);
       setShowCriteria(false);
+      setCheckedItems(new Set());
     }
+  };
+
+  const toggleCheck = (idx) => {
+    const newSet = new Set(checkedItems);
+    if (newSet.has(idx)) newSet.delete(idx);
+    else newSet.add(idx);
+    setCheckedItems(newSet);
   };
 
   const getDominantLevel = () => {
@@ -55,23 +82,58 @@ export default function AdaptiveTutor({ questions, onExit }) {
     return dominant.level;
   };
 
-  const getRecommendation = (level) => {
-    if (level === 'Bajo') return "Te recomendamos repasar los conceptos fundamentales de los temas que más te han costado.";
-    if (level === 'Medio') return "Tienes una buena base. Te sugiero reforzar practicando con criterios de corrección en mano.";
-    return "¡Excelente dominio! Estás listo para afrontar cualquier pregunta de Selectividad sobre estos bloques.";
+  const renderAnalyticFeedback = () => {
+    // Agrupar historia por bloque
+    const blockStats = {};
+    for (const entry of history) {
+      const block = entry.question.block;
+      if (!blockStats[block]) blockStats[block] = { totalScore: 0, count: 0, mistakes: [] };
+      blockStats[block].totalScore += entry.score;
+      blockStats[block].count += 1;
+      if (entry.score < 1) {
+        blockStats[block].mistakes.push(entry);
+      }
+    }
+
+    return (
+      <div className="analytics-container" style={{textAlign: 'left', marginTop: '1rem'}}>
+        <h3 style={{borderBottom: '2px solid var(--primary)', paddingBottom: '0.5rem'}}>Rendimiento Analítico por Bloques Temáticos</h3>
+        {Object.entries(blockStats).map(([block, stats]) => {
+          const avg = stats.totalScore / stats.count;
+          let icon = '🔴';
+          let color = '#d32f2f';
+          if (avg >= 0.8) { icon = '🟢'; color = '#388e3c'; }
+          else if (avg >= 0.5) { icon = '🟠'; color = '#f57c00'; }
+          
+          return (
+            <div key={block} style={{margin: '1rem 0', padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', borderLeft: `5px solid ${color}`}}>
+              <h4 style={{margin: '0 0 0.5rem 0', color: 'var(--text)'}}>{icon} {block} ({(avg*100).toFixed(0)}% éxito)</h4>
+              {stats.mistakes.length === 0 ? (
+                <p style={{margin: 0, color: 'var(--text-muted)'}}>Dominio consolidado en las preguntas evaluadas de este bloque.</p>
+              ) : (
+                <div>
+                  <p style={{margin: '0 0 0.5rem 0', fontSize: '0.9rem', fontWeight: 'bold'}}>Conceptos a reforzar (preguntas con fallos):</p>
+                  <ul style={{margin: 0, paddingLeft: '1.5rem', fontSize: '0.9rem', color: 'var(--text-muted)'}}>
+                    {stats.mistakes.map((m, i) => (
+                      <li key={i}>{m.question.year} {m.question.month} {m.question.option && `Opc. ${m.question.option}`}: Puntaje obtenido {(m.score*100).toFixed(0)}%</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
   };
 
   if (isFinished) {
     return (
       <div className="tutor-container">
-        <h2>Sesión Finalizada</h2>
-        <div className="diagnosis-box">
-          <h3>Siguiente paso recomendado:</h3>
-          <p style={{fontSize: '1.2rem', fontWeight: 'bold'}}>{getRecommendation(getDominantLevel())}</p>
-        </div>
+        <h2>Evaluación Diagnóstica Finalizada</h2>
         
-        <div className="stats-box">
-          <h4>Probabilidades Finales:</h4>
+        <div className="stats-box" style={{marginBottom: '2rem'}}>
+          <h4>Estimación global del algoritmo: Nivel {getDominantLevel()}</h4>
           {hypotheses.map(h => (
             <div key={h.level} className="prob-bar-container">
               <span>{h.level}</span>
@@ -82,32 +144,26 @@ export default function AdaptiveTutor({ questions, onExit }) {
             </div>
           ))}
         </div>
+
+        {renderAnalyticFeedback()}
         
         <button className="primary-btn" onClick={onExit} style={{marginTop: '2rem'}}>Volver al Banco</button>
       </div>
     );
   }
 
+  const criteriaItems = currentQuestion?.criteria ? currentQuestion.criteria.split('\n').filter(l => l.trim().length > 0) : [];
+
   return (
     <div className="tutor-container">
       <div className="tutor-header">
         <button onClick={onExit} className="back-btn">← Volver</button>
-        <h2>Tutor Adaptativo Bayesiano</h2>
+        <h2>Entrenador Adaptativo</h2>
       </div>
 
       <div className="dashboard">
         <div className="entropia-info">
-          Pregunta seleccionada para máxima ganancia de información
-        </div>
-        <div className="prob-bars">
-          {hypotheses.map(h => (
-            <div key={h.level} className="prob-bar-container">
-              <span>{h.level}</span>
-              <div className="prob-bar-bg">
-                <div className="prob-bar-fill" style={{ width: `${(h.prob * 100).toFixed(1)}%` }}></div>
-              </div>
-            </div>
-          ))}
+          {transitionMessage || "Calibración inicial del modelo probabilístico en curso..."}
         </div>
       </div>
 
@@ -132,22 +188,43 @@ export default function AdaptiveTutor({ questions, onExit }) {
 
           {!showCriteria ? (
             <button className="reveal-btn" onClick={() => setShowCriteria(true)}>
-              He pensado mi respuesta. Ver Criterios
+              Ver Criterios de Corrección
             </button>
           ) : (
             <div className="criteria-box">
-              <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
-                {currentQuestion.criteria || 'No hay criterios detallados.'}
-              </ReactMarkdown>
+              <h4>Criterios Oficiales:</h4>
+              <p style={{fontSize: '0.9rem', color: 'var(--text-muted)', marginBottom: '1rem'}}>
+                Marca estrictamente los elementos que has incluido en tu respuesta mental o escrita:
+              </p>
               
-              <div className="evaluation-box">
-                <h4>Autoevaluación:</h4>
-                <p>¿Qué tal lo has hecho comparado con los criterios oficiales?</p>
-                <div className="eval-buttons">
-                  <button className="eval-btn danger" onClick={() => handleScore(0)}>Mal (0)</button>
-                  <button className="eval-btn warning" onClick={() => handleScore(0.5)}>Regular (0.5)</button>
-                  <button className="eval-btn success" onClick={() => handleScore(1)}>Bien (1)</button>
+              {criteriaItems.length > 0 ? (
+                <div className="checklist-container" style={{display: 'flex', flexDirection: 'column', gap: '0.5rem', marginBottom: '1.5rem'}}>
+                  {criteriaItems.map((item, idx) => (
+                    <label key={idx} style={{display: 'flex', alignItems: 'flex-start', gap: '0.5rem', cursor: 'pointer', padding: '0.5rem', backgroundColor: checkedItems.has(idx) ? '#e8f5e9' : 'transparent', borderRadius: '4px', transition: 'background 0.2s'}}>
+                      <input 
+                        type="checkbox" 
+                        checked={checkedItems.has(idx)}
+                        onChange={() => toggleCheck(idx)}
+                        style={{marginTop: '0.3rem'}}
+                      />
+                      <div style={{flex: 1}}>
+                        <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>{item}</ReactMarkdown>
+                      </div>
+                    </label>
+                  ))}
                 </div>
+              ) : (
+                <p>No hay criterios detallados disponibles.</p>
+              )}
+              
+              <div className="evaluation-box" style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                <div>
+                  <span style={{fontWeight: 'bold'}}>Puntuación autoevaluada: </span>
+                  {criteriaItems.length > 0 ? ((checkedItems.size / criteriaItems.length)*100).toFixed(0) : 100}%
+                </div>
+                <button className="primary-btn" onClick={handleScore}>
+                  Registrar Respuesta y Continuar
+                </button>
               </div>
             </div>
           )}
