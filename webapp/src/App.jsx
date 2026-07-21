@@ -52,7 +52,7 @@ function App() {
       <header>
         <div>
           <h1>🧬 PAU Biología interactivo</h1>
-          <p style={{color: 'var(--text-muted)'}}>Banco de preguntas 2002-2026</p>
+          <p style={{color: 'var(--text-muted)'}}>Banco de preguntas 2011-2026</p>
         </div>
         <div style={{display: 'flex', gap: '1rem', alignItems: 'center'}}>
           <button className="primary-btn" onClick={() => setIsTutorMode(true)}>

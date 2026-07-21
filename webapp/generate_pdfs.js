@@ -29,65 +29,59 @@ import http from 'http';
 function getImgSrc(imgRelPath) {
     if (!imgRelPath) return '';
     return 'http://localhost:9998/' + imgRelPath.replace(/^\//, '');
+    return 'http://localhost:9997/' + imgRelPath.replace(/^\//, '');
 }
 
 const css = `
-<style>
-    body { font-family: "Georgia", serif; font-size: 11pt; line-height: 1.5; margin: 0; color: #333; }
-    h1 { font-family: "Arial", sans-serif; text-align: center; margin-top: 0; padding-bottom: 10px; border-bottom: 2px solid #ccc; page-break-before: always; }
-    .question-card { margin-bottom: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; page-break-inside: avoid; }
-    .header-badge { font-family: "Arial", sans-serif; font-size: 0.9em; font-weight: bold; background: #eee; padding: 6px 10px; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
-    .image-container { text-align: center; margin: 15px 0; }
-    .image-container img { max-width: 100%; max-height: 350px; border: 1px solid #ccc; border-radius: 4px; }
-    .criteria { background: #f4fcf6; border-left: 4px solid #28a745; padding: 10px 15px; margin-top: 15px; font-size: 0.95em; }
-    .criteria-title { font-family: "Arial", sans-serif; font-weight: bold; color: #1e7e34; margin-bottom: 5px; }
-    
-    /* Evitar el salto de página antes del primer H1 */
-    body > h1:first-child { page-break-before: auto; }
-</style>
+body { font-family: "Helvetica Neue", Arial, sans-serif; margin: 0; padding: 20px; font-size: 14px; color: #333; }
+.question { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid #eee; break-inside: avoid; }
+.header { font-weight: bold; font-size: 16px; margin-bottom: 10px; color: #1a5f7a; }
+.text { margin-bottom: 15px; line-height: 1.5; white-space: pre-wrap; }
+.criteria { background-color: #f8f9fa; padding: 15px; border-left: 4px solid #1a5f7a; margin-top: 10px; font-size: 13px; white-space: pre-wrap; }
+.image { max-width: 100%; height: auto; max-height: 400px; margin: 15px 0; border: 1px solid #ddd; }
+.block-title { font-size: 24px; color: #000; border-bottom: 2px solid #1a5f7a; padding-bottom: 5px; margin-top: 40px; margin-bottom: 20px; break-before: page; }
+.page-break { page-break-after: always; }
 `;
 
-function buildHtml(questions, groupByFunc, groupTitleFunc) {
-    let html = `<!DOCTYPE html><html><head><meta charset="utf-8">${css}</head><body>`;
+function buildHtml(dataList, groupByFunc, groupTitleFunc) {
+    let html = `<!DOCTYPE html><html><head><meta charset="utf-8"><style>${css}</style></head><body>`;
     
-    // Agrupar
-    const groups = {};
-    for (const q of questions) {
+    const groups = new Map();
+    for (const q of dataList) {
         const key = groupByFunc(q);
-        if (!groups[key]) groups[key] = [];
-        groups[key].push(q);
+        if (!groups.has(key)) groups.set(key, []);
+        groups.get(key).push(q);
     }
 
-    for (const [key, qList] of Object.entries(groups)) {
-        html += `<h1>${groupTitleFunc(key)}</h1>`;
-        for (const q of qList) {
-            html += `<div class="question-card">`;
-            html += `<div class="header-badge">Bloque ${q.block.split('-')[0]} | ${q.year} ${q.month} ${q.option ? `| Opción ${q.option}` : ''}</div>`;
+    for (const [key, qs] of groups.entries()) {
+        html += `<div class="block-title">${groupTitleFunc(key)}</div>`;
+        for (const q of qs) {
+            html += `<div class="question">`;
+            html += `<div class="header">${q.year} - ${q.month} - Opción ${q.option}</div>`;
+            html += `<div class="text"><strong>Pregunta:</strong>\n${q.question}</div>`;
             if (q.image) {
-                html += `<div class="image-container"><img src="${getImgSrc(q.image)}" /></div>`;
+                const src = getImgSrc(q.image);
+                if (src) html += `<img class="image" src="${src}" />`;
             }
-            html += `<div>${md.render(q.question || '*(Pregunta no disponible)*')}</div>`;
             if (q.criteria) {
-                html += `<div class="criteria"><div class="criteria-title">Criterios de Corrección</div>${md.render(q.criteria)}</div>`;
+                html += `<div class="criteria"><strong>Criterios de corrección:</strong>\n${q.criteria}</div>`;
             }
             html += `</div>`;
         }
     }
+    
     html += `</body></html>`;
     return html;
 }
 
-// 1. Cronológico: Agrupar por Año
-const htmlCronologico = buildHtml(data, q => q.year, key => `Año ${key}`);
+const dataCronologico = [...data].sort((a, b) => b.year - a.year || a.month.localeCompare(b.month) || (a.option || '').localeCompare(b.option || ''));
+const htmlCronologico = buildHtml(dataCronologico, q => q.year, key => `Exámenes ${key}`);
 
-// 2. Temático: Agrupar por Bloque
-// Re-ordenar primero por bloque, luego por cronología
 const dataBloques = [...data].sort((a, b) => {
-    if (a.block !== b.block) return a.block.localeCompare(b.block);
-    if (a.year !== b.year) return a.year.localeCompare(b.year);
-    const m1 = monthOrder[a.month] || 0;
-    const m2 = monthOrder[b.month] || 0;
-    if (m1 !== m2) return m1 - m2;
+    const bA = (a.block || '').toString();
+    const bB = (b.block || '').toString();
+    if (bA !== bB) return bA.localeCompare(bB);
+    if (b.year !== a.year) return b.year - a.year;
     return (a.option || '').localeCompare(b.option || '');
 });
 const htmlTematico = buildHtml(dataBloques, q => q.block, key => `Bloque ${key}`);
@@ -106,7 +100,7 @@ const server = http.createServer((req, res) => {
 
 (async () => {
     console.log("Iniciando servidor local de imágenes...");
-    server.listen(9998);
+    server.listen(9997);
 
     console.log("Iniciando Puppeteer...");
     const browser = await puppeteer.launch({ headless: 'new' });
